@@ -22,7 +22,7 @@ export default class Snippet extends Component {
     }
 
   render() {
-    return (
+    return ( 
       <div className="playground">
         <div className="playground-content">
           <Editor language={this.state.lang} code={this.state.code} />
