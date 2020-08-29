@@ -1,0 +1,27 @@
+.playground-editor {
+  position: relative;
+  width: 80%;
+  height: 90%;
+  margin-bottom: 35px;
+  font-size: 14px;
+  padding: 15px;
+  border-radius: 5px;
+  padding: 20px;
+
+  .CodeMirror {
+    border-radius: 5px;
+    height: 600px;
+    box-shadow: 1px 1px 1px 1px;
+
+  }
+
+  pre {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    margin: 0 !important;
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    background: none !important;
+  }
+}
