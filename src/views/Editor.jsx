@@ -18,6 +18,11 @@ export default class Editor extends Component {
     this.state = { 
       value: this.props.code,
       mode: this.props.language, 
+      snippets: [],
+      snippet: {
+        title: "Demo",
+        code: "",
+      }
     };
   }
 
@@ -48,33 +53,93 @@ export default class Editor extends Component {
     "text/x-scala",
   ]
 
+  componentDidMount() {
+    if(!localStorage.getItem('snippets')) {
+      localStorage.setItem('snippets', JSON.stringify([{
+        title: "Demo",
+        code: "Hello World",
+        lang: this.state.mode
+      }]))
+    }
+    this.setState({
+      value: this.props.code,
+      snippets: JSON.parse(localStorage.getItem('snippets')) || [{
+        title: "Demo",
+        code: "Hello World",
+        lang: this.state.mode
+      }]
+    })
+  }
+
   componentDidUpdate(prevProps) {
     if (prevProps.code !== this.props.code)
       this.setState({ value: this.props.code });
   }
 
   handleChange = (editor, data, value) => {
-    this.setState({ value });
+    let temp = this.state.snippet;
+    temp.code = value
+    temp.lang =  this.state.mode
+    this.setState({
+      value: value,
+      snippet: temp,
+      lang: temp.lang
+    });
+    if(this.state.snippets.length==0) {
+      this.state.snippets.push(this.state.snippet)
+    }
+
+    for(let i=0; i<this.state.snippets.length; i++) {
+      if(this.state.snippets[i].title==="Demo") {
+        this.state.snippets[i] = temp;
+      }
+    }
+    localStorage.setItem('snippets', JSON.stringify(this.state.snippets))
   };
 
   onChangeHandler(e) {
     this.setState({
-      mode: e.target.value
+      mode: e.target.value,
+      value: this.state.value,
+      lang: this.state.mode
     })
-    console.log("HI")
+  }
+
+  saveCode() {
+
+    if(this.state.snippets.length==0) {
+      this.state.snippets.push(this.state.snippet)
+    }
+
+    for(let i=0; i<this.state.snippets.length; i++) {
+      if(this.state.snippets[i].title==="Demo") {
+        this.state.snippets[i].code = this.state.value;
+        this.state.snippets[i].lang = this.state.mode;
+      }
+    }
+    localStorage.setItem('snippets', JSON.stringify(this.state.snippets))
   }
 
   render() {
     console.log(this.state)
-    const { value } = this.state;
     const options = { lineNumbers: true, mode: this.state.mode, theme: 'ayu-mirage' };
 
-    console.log("LANG:" + options.mode);
     return (
       <div className="playground-editor">
 
       <Row className={"m-4"}>
-        <FormSelect id="my" onChange={(e) => this.setState({mode: e.target.value})}>
+        <FormSelect 
+        value={this.state.mode} 
+        onChange={(e) => {
+          this.setState({mode: e.target.value})
+          for(let i=0; i<this.state.snippets.length; i++) {
+            if(this.state.snippets[i].title==="Demo") {
+              this.state.snippets[i].code = this.state.value;
+              this.state.snippets[i].lang = e.target.value;
+            }
+          }
+          localStorage.setItem('snippets', JSON.stringify(this.state.snippets))
+        }}>
           {
             this.languages.map((language, index) => {
               return(<option key={index} value={this.modes[index]}>{language}</option>)
@@ -84,9 +149,9 @@ export default class Editor extends Component {
       </Row>
       <CodeMirror
           className={"ml-4"}
-          value={value}
+          value={this.state.value}
           onBeforeChange={this.handleChange}
-          onChange={localStorage.setItem('data',this.state.value)}
+          onChange={this.saveCode.bind(this)}
           options={options}
           height={"100%"}
         />

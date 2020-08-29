@@ -8,7 +8,13 @@ class SidebarNavItems extends React.Component {
     super(props)
 
     this.state = {
-      navItems: []
+      navItems: [{
+        title: "I TRIED",
+        to: "",
+        htmlBefore: '',
+        htmlAfter: ""
+      }
+      ]
     };
 
     this.onChange = this.onChange.bind(this);
