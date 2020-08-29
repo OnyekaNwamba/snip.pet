@@ -10,15 +10,15 @@ require('codemirror/mode/javascript/javascript');
 export default class Editor extends Component {
   state = { value: this.props.code };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.code !== this.props.code)
       this.setState({ value: this.props.code });
   }
 
   handleChange = (editor, data, value) => {
     this.setState({ value });
-    localStorage.setItem('data',this.state.value);
   };
+
 
   render() {
     console.log(this.state)
