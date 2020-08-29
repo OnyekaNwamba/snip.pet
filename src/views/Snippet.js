@@ -5,6 +5,16 @@ export default class Snippet extends Component {
   constructor(props) {
     super(props);
 
+    const firstTime = {
+      title: "Demo",
+      code: "#Welcome to Snip.pet!\n" + 
+            "#Here you can save quick code snippets with color coding and syntax highlighting\n" +
+            "\n" +
+            "#NOTE: Snip.pet makes use of you local storage to save code snippets. Deleting history may deleted your saved snippets",
+      lang: "python",
+        
+    }
+
     const getSnippet = (snippets,title) =>  {
       for(let i=0; i<snippets.length; i++) {
         if(snippets[i].title===title) {
@@ -12,11 +22,11 @@ export default class Snippet extends Component {
         }
       }
     }
-    const snippets = JSON.parse(localStorage.getItem('snippets')) || {};
+    const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
     const snippet = getSnippet(snippets,"Demo")
     this.state = { 
-      lang: snippet ? snippet.lang : "python",
-      title: "",
+      lang: snippet.lang,
+      title: snippet.title,
       snippets: snippets
     };
   }
@@ -32,16 +42,24 @@ export default class Snippet extends Component {
 
   componentDidMount() {
 
-    const snippets = JSON.parse(localStorage.getItem('snippets'));
+    const firstTime = {
+      title: "Demo",
+      code: "#Welcome to Snip.pet!\n" + 
+            "#Here you can save quick code snippets with color coding and syntax highlighting\n" +
+            "\n" +
+            "#NOTE: Snip.pet makes use of you local storage to save code snippets.\n#     Deleting history may deleted your saved snippets",
+      lang: "python",
+        
+    }
+
+    const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
     const snippet = this.getSnippet(snippets,"Demo")
 
     this.setState({
       lang: 'python',
-      code: this.getSnippet(snippets,"Demo").code,
+      code: snippet.code,
       snippets: snippets
     })
-    console.log("PROPS")
-    console.log(this.getSnippet(snippets,"Demo").code)
   }
 
   componentDidUpdate(prevProps, prevState) {

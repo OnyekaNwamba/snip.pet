@@ -54,13 +54,6 @@ export default class Editor extends Component {
   ]
 
   componentDidMount() {
-    if(!localStorage.getItem('snippets')) {
-      localStorage.setItem('snippets', JSON.stringify([{
-        title: "Demo",
-        code: "Hello World",
-        lang: this.state.mode
-      }]))
-    }
     this.setState({
       value: this.props.code,
       snippets: JSON.parse(localStorage.getItem('snippets')) || [{
