@@ -1,8 +1,6 @@
 import React from "react";
 import { Nav } from "shards-react";
-import { useHistory } from 'react-router-dom';
 import SidebarNavItem from "./SidebarNavItem";
-import getNavItems from "/Users/nwamba/Documents/snippet/src/data/sidebar-nav-items.js"
 import { withRouter } from "react-router";
 
 class SidebarNavItems extends React.Component {
@@ -13,25 +11,22 @@ class SidebarNavItems extends React.Component {
     };
   }
 
+  getNavItems = () => {
+    return JSON.parse(localStorage.getItem('snippets')).map((snippet) => {
+      return {
+        title: snippet.title,
+        to: "",
+        htmlBefore: '',
+        htmlAfter: ""
+      }
+    })
+  }
+
   componentDidMount() {
     this.setState ({
-      navItems: [
-        {
-          title: "YAY",
-          to: "",
-          htmlBefore: '',
-          htmlAfter: ""
-        },
-        {
-          title: "YAYS",
-          to: "",
-          htmlBefore: '',
-          htmlAfter: ""
-        }
-      ]
-
+     navItems: this.getNavItems()
     });
-    //const history = useHistory();
+   console.log("ITEMS:" + this.state.navItems)
   }
 
   onChange = () => {

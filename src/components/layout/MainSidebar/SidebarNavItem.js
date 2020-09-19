@@ -4,10 +4,6 @@ import { withRouter } from "react-router";
 import { NavItem, NavLink } from "shards-react";
 
 class SidebarNavItem extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const onClickHandler = () => {
       const current = this.props.location.pathname + '?snip=' + this.props.item.title;
