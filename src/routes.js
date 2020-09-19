@@ -16,7 +16,7 @@ export default [
     component: () => <Redirect to="/snippet" />
   },
   {
-    path: "/snippet/",
+    path: "/snippet",
     layout: DefaultLayout,
     component: Snippet
   },

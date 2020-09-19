@@ -6,11 +6,9 @@ import { NavItem, NavLink } from "shards-react";
 class SidebarNavItem extends React.Component {
   render() {
     const onClickHandler = () => {
-      const current = this.props.location.pathname + '?snip=' + this.props.item.title;
-      this.props.history.replace(`/reload`);
-      setTimeout(() => {
-        this.props.history.replace(current);
-      });
+      this.props.history.push('?snip='+this.props.item.title)
+      console.log(this.props.history)
+      window.location.reload()
     }
 
     return (
