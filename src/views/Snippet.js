@@ -16,17 +16,6 @@ export default class Snippet extends Component {
         
     }
 
-    /*
-    const getSnippet = (snippets,title) =>  {
-      for(let i=0; i<snippets.length; i++) {
-        if(snippets[i].title===title) {
-          return snippets[i]
-        }
-      }
-    }
-
-     */
-
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
     const snippet = this.getSnippet(snippets,new URLSearchParams(window.location.search).get('snip'))
     this.state = { 

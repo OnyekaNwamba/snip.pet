@@ -63,7 +63,6 @@ export default class Editor extends Component {
         lang: this.state.mode
       }]
     })
-    console.log("HISTORY: "+ this.props.history)
   }
 
   componentDidUpdate(prevProps) {
@@ -107,7 +106,7 @@ export default class Editor extends Component {
     }
 
     for(let i=0; i<this.state.snippets.length; i++) {
-      if(this.state.snippets[i].title==="Demo") {
+      if(this.state.snippets[i].title===new URLSearchParams(window.location.search).get('snip')) {
         this.state.snippets[i].code = this.state.value;
         this.state.snippets[i].lang = this.state.mode;
       }
@@ -117,8 +116,6 @@ export default class Editor extends Component {
 
   render() {
     const options = { lineNumbers: true, mode: this.state.mode, theme: 'ayu-mirage' };
-
-    console.log(JSON.stringify(this.props.params))
 
     return (
       <div className="playground-editor">
