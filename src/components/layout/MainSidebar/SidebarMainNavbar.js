@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Navbar, NavbarBrand } from "shards-react";
+import { Navbar, NavbarBrand, Button } from "shards-react";
+import { withRouter } from "react-router";
+
 
 class SidebarMainNavbar extends React.Component {
   constructor(props) {

@@ -12,9 +12,11 @@ export default class Snippet extends Component {
             "\n" +
             "#NOTE: Snip.pet makes use of you local storage to save code snippets. Deleting history may deleted your saved snippets",
       lang: "python",
+      isUntitled: false
         
     }
 
+    /*
     const getSnippet = (snippets,title) =>  {
       for(let i=0; i<snippets.length; i++) {
         if(snippets[i].title===title) {
@@ -22,21 +24,37 @@ export default class Snippet extends Component {
         }
       }
     }
+
+     */
+
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
-    const snippet = getSnippet(snippets,new URLSearchParams(window.location.search).get('snip'))
+    const snippet = this.getSnippet(snippets,new URLSearchParams(window.location.search).get('snip'))
     this.state = { 
       lang: snippet.lang,
       title: snippet.title,
-      snippets: snippets
+      snippets: snippets,
+      isUntitled: false
     };
   }
 
   getSnippet = (snippets,title) =>  {
+
     for(let i=0; i<snippets.length; i++) {
       if(snippets[i].title===title) {
         return snippets[i]
       }
     }
+
+    const newSnip = {
+      title: title,
+      code: "",
+      lang: 'python',
+      isUntitled: true
+    }
+    snippets.push(newSnip)
+    localStorage.setItem('snippets', JSON.stringify(snippets));
+    return newSnip
+
   }
   
 
@@ -53,7 +71,7 @@ export default class Snippet extends Component {
     }
 
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
-    const snippet = this.getSnippet(snippets,"Demo")
+    const snippet = this.getSnippet(snippets,new URLSearchParams(window.location.search).get('snip'))
 
     this.setState({
       lang: 'python',
@@ -67,12 +85,7 @@ export default class Snippet extends Component {
     }
 
   render() {
-    console.log(this.props)
-    let search = window.location.search;
-    let params = new URLSearchParams(search);
-    let foo = params.get('snip');
-    console.log(foo)
-    return ( 
+    return (
       <div className="playground">
         <div className="playground-content">
           <Editor language={this.state.lang} code={this.state.code} />

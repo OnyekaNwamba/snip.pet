@@ -63,9 +63,7 @@ export default class Editor extends Component {
         lang: this.state.mode
       }]
     })
-
     console.log("HISTORY: "+ this.props.history)
-
   }
 
   componentDidUpdate(prevProps) {
@@ -116,8 +114,6 @@ export default class Editor extends Component {
     }
     localStorage.setItem('snippets', JSON.stringify(this.state.snippets))
   }
-
-  //TODO Detect when sessionStorage has changed
 
   render() {
     const options = { lineNumbers: true, mode: this.state.mode, theme: 'ayu-mirage' };

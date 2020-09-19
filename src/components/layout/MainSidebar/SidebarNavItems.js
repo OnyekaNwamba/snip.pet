@@ -12,38 +12,33 @@ class SidebarNavItems extends React.Component {
   }
 
   getNavItems = () => {
-    return JSON.parse(localStorage.getItem('snippets')).map((snippet) => {
-      return {
-        title: snippet.title,
-        to: "",
-        htmlBefore: '',
-        htmlAfter: ""
-      }
-    })
+    if(JSON.parse(localStorage.getItem('snippets'))) {
+      return JSON.parse(localStorage.getItem('snippets')).map((snippet) => {
+        return {
+          title: snippet.title,
+          to: "",
+          htmlBefore: '',
+          htmlAfter: ""
+        }
+      })
+    }
+    return []
   }
 
   componentDidMount() {
     this.setState ({
      navItems: this.getNavItems()
     });
-   console.log("ITEMS:" + this.state.navItems)
   }
-
-  onChange = () => {
-
-  }
-
 
   render() {
-    //const { navItems: items } = this.state.navItems;
-    //const history = useHistory();
-
+    const currentSnip = new URLSearchParams(window.location.search).get('snip')
     return (
       <div className="nav-wrapper">
         <Nav className="nav--no-borders flex-column">
           {this.state.navItems.map((item, idx) => {
-            let isActive = item.title=="YAS"  ? true : false
-            return(<SidebarNavItem key={idx} item={item} active={isActive} onClick={() =>console.log("Hi")}/>)
+            let isActive = item.title === currentSnip
+            return(<SidebarNavItem key={idx} item={item} active={isActive} />)
           })}
         </Nav>
       </div>

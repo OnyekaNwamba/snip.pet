@@ -7,7 +7,6 @@ class SidebarNavItem extends React.Component {
   render() {
     const onClickHandler = () => {
       const current = this.props.location.pathname + '?snip=' + this.props.item.title;
-      console.log(current)
       this.props.history.replace(`/reload`);
       setTimeout(() => {
         this.props.history.replace(current);
@@ -15,7 +14,7 @@ class SidebarNavItem extends React.Component {
     }
 
     return (
-      <NavItem>
+      <NavItem active={this.props.active}>
         <NavLink href="#" onClick={ onClickHandler }>
           {this.props.item.title && <span>{this.props.item.title}</span>}
         </NavLink>
