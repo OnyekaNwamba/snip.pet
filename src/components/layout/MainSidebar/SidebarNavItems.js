@@ -1,52 +1,59 @@
 import React from "react";
 import { Nav } from "shards-react";
-
+import { useHistory } from 'react-router-dom';
 import SidebarNavItem from "./SidebarNavItem";
+import getNavItems from "/Users/nwamba/Documents/snippet/src/data/sidebar-nav-items.js"
+import { withRouter } from "react-router";
 
 class SidebarNavItems extends React.Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      navItems: [{
-        title: "I TRIED",
-        to: "",
-        htmlBefore: '',
-        htmlAfter: ""
-      }
-      ]
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  componentWillMount() {
-    
-  }
-
-  componentWillUnmount() {
-   
-  }
-
-  onChange() {
-    this.setState({
-      ...this.state,
+    this.state = { 
       navItems: []
-    });
+    };
   }
+
+  componentDidMount() {
+    this.setState ({
+      navItems: [
+        {
+          title: "YAY",
+          to: "",
+          htmlBefore: '',
+          htmlAfter: ""
+        },
+        {
+          title: "YAYS",
+          to: "",
+          htmlBefore: '',
+          htmlAfter: ""
+        }
+      ]
+
+    });
+    //const history = useHistory();
+  }
+
+  onChange = () => {
+
+  }
+
 
   render() {
-    const { navItems: items } = this.state;
+    //const { navItems: items } = this.state.navItems;
+    //const history = useHistory();
+
     return (
       <div className="nav-wrapper">
         <Nav className="nav--no-borders flex-column">
-          {items.map((item, idx) => (
-            <SidebarNavItem key={idx} item={item} />
-          ))}
+          {this.state.navItems.map((item, idx) => {
+            let isActive = item.title=="YAS"  ? true : false
+            return(<SidebarNavItem key={idx} item={item} active={isActive} onClick={() =>console.log("Hi")}/>)
+          })}
         </Nav>
       </div>
     )
   }
 }
 
-export default SidebarNavItems;
+export default withRouter(SidebarNavItems);

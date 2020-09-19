@@ -11,7 +11,6 @@ import SidebarNavItems from "./SidebarNavItems";
 class MainSidebar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       menuVisible: false,
     };

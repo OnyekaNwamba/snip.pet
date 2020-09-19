@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { FormSelect, Row } from 'shards-react'
+import { FormSelect, Row } from 'shards-react';
+import { Helmet } from "react-helmet";
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/ayu-mirage.css';
 import './Editor.scss';
@@ -62,6 +63,9 @@ export default class Editor extends Component {
         lang: this.state.mode
       }]
     })
+
+    console.log("HISTORY: "+ this.props.history)
+
   }
 
   componentDidUpdate(prevProps) {
@@ -113,12 +117,16 @@ export default class Editor extends Component {
     localStorage.setItem('snippets', JSON.stringify(this.state.snippets))
   }
 
+  //TODO Detect when sessionStorage has changed
+
   render() {
-    console.log(this.state)
     const options = { lineNumbers: true, mode: this.state.mode, theme: 'ayu-mirage' };
+
+    console.log(JSON.stringify(this.props.params))
 
     return (
       <div className="playground-editor">
+
 
       <Row className={"m-4"}>
         <FormSelect 

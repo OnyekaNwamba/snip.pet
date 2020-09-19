@@ -16,13 +16,13 @@ export default () => (
             key={index}
             path={route.path}
             exact={route.exact}
-            component={withTracker(props => {
+            render={(props)  => {
               return (
                 <route.layout {...props}>
                   <route.component {...props} />
                 </route.layout>
               );
-            })}
+            }}
           />
         );
       })}

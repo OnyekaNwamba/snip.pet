@@ -23,7 +23,7 @@ export default class Snippet extends Component {
       }
     }
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
-    const snippet = getSnippet(snippets,"Demo")
+    const snippet = getSnippet(snippets,new URLSearchParams(window.location.search).get('snip'))
     this.state = { 
       lang: snippet.lang,
       title: snippet.title,
@@ -67,6 +67,11 @@ export default class Snippet extends Component {
     }
 
   render() {
+    console.log(this.props)
+    let search = window.location.search;
+    let params = new URLSearchParams(search);
+    let foo = params.get('snip');
+    console.log(foo)
     return ( 
       <div className="playground">
         <div className="playground-content">

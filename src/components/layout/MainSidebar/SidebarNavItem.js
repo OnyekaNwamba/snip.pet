@@ -1,27 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { NavLink as RouteNavLink } from "react-router-dom";
+import { withRouter } from "react-router";
 import { NavItem, NavLink } from "shards-react";
 
-const SidebarNavItem = ({ item }) => (
-  <NavItem>
-    <NavLink tag={RouteNavLink} to={item.to}>
-      {item.htmlBefore && (
-        <div
-          className="d-inline-block item-icon-wrapper"
-          dangerouslySetInnerHTML={{ __html: item.htmlBefore }}
-        />
-      )}
-      {item.title && <span>{item.title}</span>}
-      {item.htmlAfter && (
-        <div
-          className="d-inline-block item-icon-wrapper"
-          dangerouslySetInnerHTML={{ __html: item.htmlAfter }}
-        />
-      )}
-    </NavLink>
-  </NavItem>
-);
+class SidebarNavItem extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const onClickHandler = () => {
+      const current = this.props.location.pathname + '?snip=' + this.props.item.title;
+      console.log(current)
+      this.props.history.replace(`/reload`);
+      setTimeout(() => {
+        this.props.history.replace(current);
+      });
+    }
+
+    return (
+      <NavItem>
+        <NavLink href="#" onClick={ onClickHandler }>
+          {this.props.item.title && <span>{this.props.item.title}</span>}
+        </NavLink>
+      </NavItem>
+    )
+  }
+}
 
 SidebarNavItem.propTypes = {
   /**
@@ -30,4 +35,4 @@ SidebarNavItem.propTypes = {
   item: PropTypes.object
 };
 
-export default SidebarNavItem;
+export default withRouter(SidebarNavItem);
