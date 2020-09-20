@@ -13,8 +13,6 @@ export default class Snippet extends Component {
             "#NOTE: Snip.pet makes use of you local storage to save code snippets. Deleting history may deleted your saved snippets",
       lang: "python",
       isUntitled: false,
-      duplicateNumber: 0,
-        
     }
 
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
@@ -40,7 +38,6 @@ export default class Snippet extends Component {
       code: "",
       lang: 'python',
       isUntitled: true,
-      duplicateNumber: 0
     }
     snippets.push(newSnip)
     localStorage.setItem('snippets', JSON.stringify(snippets));
@@ -76,8 +73,7 @@ export default class Snippet extends Component {
             "\n" +
             "#NOTE: Snip.pet makes use of you local storage to save code snippets.\n#     Deleting history may deleted your saved snippets",
       lang: "python",
-      duplicateNumber: 0
-        
+
     }
 
     const snippets = JSON.parse(localStorage.getItem('snippets')) || [firstTime];
