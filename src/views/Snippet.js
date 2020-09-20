@@ -45,6 +45,7 @@ export default class Snippet extends Component {
 
   }
 
+  //If duplicate, overwrite snippet
   findDuplicates = (arr) => {
     let sorted_arr = arr.slice().sort(); // You can define the comparing function here.
     // JS by default uses a crappy string compare.
@@ -57,8 +58,8 @@ export default class Snippet extends Component {
       }
     }
     if(results!=null) {
-      arr[results+1].title = arr[results+1].title + "(1)"
-      //console.log()
+      arr.splice(results+1,1)
+      console.log(arr)
       localStorage.setItem('snippets', JSON.stringify(arr))
     }
   }
@@ -87,10 +88,11 @@ export default class Snippet extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.findDuplicates(JSON.parse(localStorage.getItem('snippets')))
+    this.findDuplicates(JSON.parse(localStorage.getItem('snippets')) || [])
   }
 
   render() {
+    this.findDuplicates(JSON.parse(localStorage.getItem('snippets')) || [])
     return (
       <div className="playground">
         <div className="playground-content">

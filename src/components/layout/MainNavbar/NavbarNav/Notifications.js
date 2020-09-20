@@ -1,5 +1,5 @@
 import React from "react";
-import {NavItem, NavLink, Nav, FormInput, Form, Modal, ModalHeader, ModalBody, ModalFooter, Button, ButtonGroup} from "shards-react";
+import {NavItem, NavLink, Nav, Tooltip, Form, Modal, ModalHeader, ModalBody, ModalFooter, Button, ButtonGroup} from "shards-react";
 import { withRouter } from "react-router";
 
 class Notifications extends React.Component {
@@ -7,13 +7,40 @@ class Notifications extends React.Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      deleteTip: false,
+      renameTip: false,
+      createTip: false
     };
+
     this.toggle = this.toggle.bind(this);
+    this.toggleDeleteTip = this.toggleDeleteTip.bind(this);
+    this.toggleRenameTip = this.toggleRenameTip.bind(this);
+    this.toggleCreateTip = this.toggleCreateTip.bind(this);
+
   }
+
   toggle() {
     this.setState({
       open: !this.state.open
+    });
+  }
+
+  toggleDeleteTip() {
+    this.setState({
+      deleteTip: !this.state.deleteTip
+    });
+  }
+
+  toggleRenameTip() {
+    this.setState({
+      renameTip: !this.state.renameTip
+    });
+  }
+
+  toggleCreateTip() {
+    this.setState({
+      createTip: !this.state.createTip
     });
   }
 
@@ -61,7 +88,7 @@ class Notifications extends React.Component {
           </ModalFooter>
         </Modal>
         <Nav className="w-100">
-          <NavItem>
+          <NavItem id="CreateSnip">
             <NavLink
               className="nav-link-icon"
               href="#"
@@ -71,7 +98,7 @@ class Notifications extends React.Component {
 
             </NavLink>
           </NavItem>
-          <NavItem>
+          <NavItem id="DeleteSnip">
             <NavLink
               className="nav-link-icon"
               href="#"
@@ -80,7 +107,38 @@ class Notifications extends React.Component {
               <i className="far fa-trash-alt" style={{color:'red'}}/>
             </NavLink>
           </NavItem>
+
+          <NavItem id="RenameSnip">
+            <NavLink
+              className="nav-link-icon"
+              href="#"
+              onClick={this.toggle}
+            >
+              <i className="far fa-edit"/>
+            </NavLink>
+          </NavItem>
         </Nav>
+        <Tooltip
+          open={this.state.renameTip}
+          target="#RenameSnip"
+          toggle={this.toggleRenameTip}
+        >
+          Rename snip
+        </Tooltip>
+        <Tooltip
+          open={this.state.deleteTip}
+          target="#DeleteSnip"
+          toggle={this.toggleDeleteTip}
+        >
+          Delete snip
+        </Tooltip>
+        <Tooltip
+          open={this.state.createTip}
+          target="#CreateSnip"
+          toggle={this.toggleCreateTip}
+        >
+          Create new snip
+        </Tooltip>
       </div>
     );
   }

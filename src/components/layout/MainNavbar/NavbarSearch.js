@@ -42,7 +42,7 @@ class NavbarSearch extends React.Component {
       <Form size="lg">
         <InputGroup>
           <FormInput
-            defaultValue={new URLSearchParams(window.location.search).get('snip')}
+            value={new URLSearchParams(window.location.search).get('snip')}
             style={{width:"1350px", height:"100%", fontSize:"30px", fontWeight:"bold"}}
             onChange={(event) => this.renameSnippet(event.target.value)}
           />
