@@ -9,11 +9,8 @@ class Notifications extends React.Component {
     this.state = {
       open: false
     };
-
     this.toggle = this.toggle.bind(this);
-
   }
-
   toggle() {
     this.setState({
       open: !this.state.open
@@ -35,7 +32,6 @@ class Notifications extends React.Component {
       let snipTitle = noOfUntitled === 0 ? "Untitled" : "Untitled("+noOfUntitled+")"
       this.props.history.push('?snip='+snipTitle)
       window.location.reload();
-
     }
 
     const deleteSnippet = () => {
