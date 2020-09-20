@@ -23,6 +23,8 @@ export default class Editor extends Component {
       snippet: {
         title: "Demo",
         code: "",
+        isUntitled: false,
+        duplicateNumber: 0
       }
     };
   }
@@ -60,7 +62,9 @@ export default class Editor extends Component {
       snippets: JSON.parse(localStorage.getItem('snippets')) || [{
         title: "Demo",
         code: "Hello World",
-        lang: this.state.mode
+        lang: this.state.mode,
+        isUntitled: false,
+        duplicateNumber: 0
       }]
     })
   }

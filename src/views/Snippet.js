@@ -12,7 +12,8 @@ export default class Snippet extends Component {
             "\n" +
             "#NOTE: Snip.pet makes use of you local storage to save code snippets. Deleting history may deleted your saved snippets",
       lang: "python",
-      isUntitled: false
+      isUntitled: false,
+      duplicateNumber: 0,
         
     }
 
@@ -38,14 +39,33 @@ export default class Snippet extends Component {
       title: title,
       code: "",
       lang: 'python',
-      isUntitled: true
+      isUntitled: true,
+      duplicateNumber: 0
     }
     snippets.push(newSnip)
     localStorage.setItem('snippets', JSON.stringify(snippets));
     return newSnip
 
   }
-  
+
+  findDuplicates = (arr) => {
+    let sorted_arr = arr.slice().sort(); // You can define the comparing function here.
+    // JS by default uses a crappy string compare.
+    // (we use slice to clone the array so the
+    // original array won't be modified)
+    let results;
+    for (let i = 0; i < sorted_arr.length - 1; i++) {
+      if (sorted_arr[i + 1].title === sorted_arr[i].title) {
+        results = i;
+      }
+    }
+    if(results!=null) {
+      arr[results+1].title = arr[results+1].title + "(1)"
+      //console.log()
+      localStorage.setItem('snippets', JSON.stringify(arr))
+    }
+  }
+
 
   componentDidMount() {
 
@@ -56,6 +76,7 @@ export default class Snippet extends Component {
             "\n" +
             "#NOTE: Snip.pet makes use of you local storage to save code snippets.\n#     Deleting history may deleted your saved snippets",
       lang: "python",
+      duplicateNumber: 0
         
     }
 
@@ -70,8 +91,8 @@ export default class Snippet extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-      localStorage.setItem('data', "NSK");
-    }
+    this.findDuplicates(JSON.parse(localStorage.getItem('snippets')))
+  }
 
   render() {
     return (
