@@ -20,21 +20,8 @@ class NavbarSearch extends React.Component {
     })
   }
 
-  //TODO: Fix bug => Renaming snips with spaces creates errors
   //TODO: No duplicate names
   //TODO: No empty name
-  renameSnippet = (e) => {
-    const snippets = JSON.parse(localStorage.getItem('snippets'))
-    const title = new URLSearchParams(window.location.search).get('snip')
-    for(let i=0; i<snippets.length; i++) {
-      if(snippets[i].title === title) {
-        snippets[i].title = e
-        break
-      }
-    }
-    this.props.history.push('?snip='+e)
-    localStorage.setItem('snippets', JSON.stringify(snippets))
-  }
 
   render() {
 
@@ -44,7 +31,6 @@ class NavbarSearch extends React.Component {
           <FormInput
             value={new URLSearchParams(window.location.search).get('snip')}
             style={{width:"1350px", height:"100%", fontSize:"30px", fontWeight:"bold"}}
-            onChange={(event) => this.renameSnippet(event.target.value)}
           />
         </InputGroup>
       </Form>
